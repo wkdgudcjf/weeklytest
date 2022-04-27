@@ -23,7 +23,7 @@ def save_post():
     title = request.form.get('title')
     content = request.form.get('content')
     pw = request.form.get('pw')
-    post_count = db.test.collection.estimated_document_count()
+    post_count = db.test.estimated_document_count({})
     if post_count == 0:
         max_value = 1
     else:
