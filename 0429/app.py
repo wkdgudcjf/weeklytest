@@ -24,10 +24,12 @@ def save_post():
     content = request.form.get('content')
     pw = request.form.get('pw')
     post_count = db.test.estimated_document_count({})
+
     if post_count == 0:
         max_value = 1
     else:
-        max_value = db.test.find_one(sort=[("idx", -1)])['idx'] + 1
+        # max_value = db.test.find_one(sort=[("idx", -1)])['idx'] + 1 이 부분에 질문이 있어서 아래처럼 구현해도 가능합니다.
+        max_value = (list(db.test.find({}).sort([("idx", -1)])))[0]['idx'] + 1
 
     post = {
         'idx': max_value,
